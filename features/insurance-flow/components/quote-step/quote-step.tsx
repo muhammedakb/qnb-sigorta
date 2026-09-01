@@ -8,8 +8,7 @@ import {
   Send,
   ShieldCheck,
 } from 'lucide-react';
-
-import { Button } from '@/components/core/button';
+import { Button } from '@muhammedakb/qnb-ui/actions';
 import {
   Card,
   CardContent,
@@ -17,10 +16,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/core/card';
-import { Separator } from '@/components/core/separator';
+} from '@muhammedakb/qnb-ui/data-display';
+import { Separator } from '@muhammedakb/qnb-ui/layout';
 
 import { useQuoteStore } from '@/store/quote-store';
+
 import { QUOTE_BENEFITS } from './constants';
 
 export function QuoteStep() {

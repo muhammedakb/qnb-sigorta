@@ -12,8 +12,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-
-import { Button } from '@/components/core/button';
+import { Button } from '@muhammedakb/qnb-ui/actions';
 import {
   Card,
   CardContent,
@@ -21,7 +20,23 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/core/card';
+} from '@muhammedakb/qnb-ui/data-display';
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  Input,
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+  InputShell,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@muhammedakb/qnb-ui/forms';
 import {
   Dialog,
   DialogContent,
@@ -29,33 +44,13 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/core/dialog';
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/core/field';
-import { Input } from '@/components/core/input';
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from '@/components/core/input-otp';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/core/select';
+} from '@muhammedakb/qnb-ui/overlays';
 
 import { useQuoteStore } from '@/store/quote-store';
-import type { PersonalDetails } from '../../types';
 
+import type { PersonalDetails } from '../../types';
 import { OCCUPATIONS } from './constants';
 import { personalDetailsSchema } from './validations';
-import { InputShell } from '@/components/core/input-shell';
 
 export function PersonalStep() {
   const personal = useQuoteStore((state) => state.personal);

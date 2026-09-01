@@ -2,19 +2,20 @@
 
 import { RefreshCcw, ShieldCheck } from 'lucide-react';
 import { useEffect, useState } from 'react';
-
-import { Button } from '@/components/core/button';
+import { Button } from '@muhammedakb/qnb-ui/actions';
+import { FlowSkeleton } from '@muhammedakb/qnb-ui/feedback';
+import { Stepper } from '@muhammedakb/qnb-ui/navigation';
 
 import { useQuoteStore } from '@/store/quote-store';
 
 import { HealthStep } from './components/health-step';
 import { PersonalStep } from './components/personal-step';
 import { QuoteStep } from './components/quote-step';
-import { FlowSkeleton, Stepper } from '@/components/composed';
 import { INSURANCE_FLOW_STEPS } from './constants';
 
 export function InsuranceFlow() {
   const currentStep = useQuoteStore((state) => state.currentStep);
+  const setStep = useQuoteStore((state) => state.setStep);
   const hasHydrated = useQuoteStore((state) => state.hasHydrated);
   const reset = useQuoteStore((state) => state.reset);
   const [flowKey, setFlowKey] = useState(0);
@@ -66,7 +67,12 @@ export function InsuranceFlow() {
             Tamamlayıcı Sağlık Sigortası
           </h1>
         </div>
-        <Stepper steps={INSURANCE_FLOW_STEPS} />
+        <Stepper
+          steps={INSURANCE_FLOW_STEPS}
+          currentStep={currentStep}
+          onStepChange={setStep}
+          ariaLabel='Teklif adımları'
+        />
         <div key={flowKey} className='mx-auto mt-7 max-w-6xl sm:mt-9'>
           {currentStep === 1 && <PersonalStep />}
           {currentStep === 2 && <HealthStep />}

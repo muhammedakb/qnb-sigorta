@@ -3,8 +3,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ArrowLeft, ArrowRight, Check, HeartPulse } from 'lucide-react';
 import { useForm, useWatch } from 'react-hook-form';
-
-import { Button } from '@/components/core/button';
+import { Button } from '@muhammedakb/qnb-ui/actions';
 import {
   Card,
   CardContent,
@@ -12,15 +11,16 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/core/card';
-import { Separator } from '@/components/core/separator';
+} from '@muhammedakb/qnb-ui/data-display';
+import { Separator } from '@muhammedakb/qnb-ui/layout';
+
 import { cn } from '@/lib/utils';
+import { useQuoteStore } from '@/store/quote-store';
 
 import type { HealthAnswer } from '../../types';
 import { HEALTH_CONDITIONS } from './constants';
 import type { HealthForm } from './types';
 import { healthSchema } from './validations';
-import { useQuoteStore } from '@/store/quote-store';
 
 export function HealthStep() {
   const healthAnswer = useQuoteStore((state) => state.healthAnswer);
