@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
   ArrowRight,
   BriefcaseBusiness,
-  Info,
   Mail,
   Phone,
   ShieldCheck,
@@ -27,9 +26,6 @@ import {
   FieldGroup,
   FieldLabel,
   Input,
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
   InputShell,
   Select,
   SelectContent,
@@ -37,14 +33,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@muhammedakb/qnb-ui/forms';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@muhammedakb/qnb-ui/overlays';
+import { OtpVerificationDialog } from '@muhammedakb/qnb-ui/overlays';
 
 import { useQuoteStore } from '@/store/quote-store';
 
@@ -87,11 +76,12 @@ export function PersonalStep() {
     setSecurityOpen(true);
   };
 
-  const verifyOtp = () => {
-    if (otp.length !== 6) {
+  const verifyOtp = (value: string) => {
+    if (value.length !== 6) {
       setOtpError('Lütfen 6 haneli doğrulama kodunu girin.');
       return;
     }
+    setOtp(value);
     setSecurityOpen(false);
     setStep(2);
   };
@@ -240,66 +230,17 @@ export function PersonalStep() {
         </CardFooter>
       </Card>
 
-      <Dialog open={securityOpen} onOpenChange={setSecurityOpen}>
-        <DialogContent className='gap-0 overflow-hidden p-0 sm:max-w-md'>
-          <DialogHeader className='border-b px-6 py-5'>
-            <div className='mb-2 flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary'>
-              <ShieldCheck className='size-5' />
-            </div>
-            <DialogTitle className='text-lg'>Güvenlik onayı</DialogTitle>
-            <DialogDescription className='leading-relaxed'>
-              Telefonunuza gönderilen 6 haneli doğrulama kodunu girin.
-            </DialogDescription>
-          </DialogHeader>
-          <div className='space-y-5 px-6 py-6'>
-            <div className='flex items-center justify-between text-sm'>
-              <span className='font-medium'>Tek kullanımlık şifre</span>
-              <span className='rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary'>
-                Demo kod: 123456
-              </span>
-            </div>
-            <InputOTP
-              maxLength={6}
-              value={otp}
-              onChange={(value) => {
-                setOtp(value);
-                setOtpError('');
-              }}
-              onComplete={(value) => {
-                setOtp(value);
-                setSecurityOpen(false);
-                setStep(2);
-              }}
-              containerClassName='justify-center'
-              aria-invalid={!!otpError}
-            >
-              <InputOTPGroup className='gap-2'>
-                {Array.from({ length: 6 }, (_, index) => (
-                  <InputOTPSlot
-                    key={index}
-                    index={index}
-                    className='size-11 rounded-lg border text-base first:rounded-lg last:rounded-lg'
-                  />
-                ))}
-              </InputOTPGroup>
-            </InputOTP>
-            {otpError && (
-              <p role='alert' className='text-center text-sm text-destructive'>
-                {otpError}
-              </p>
-            )}
-            <div className='flex gap-2 rounded-xl border bg-muted/30 p-3 text-xs leading-relaxed text-muted-foreground'>
-              <Info className='mt-0.5 size-4 shrink-0' />
-              Demo akışında herhangi bir 6 haneli kod ile ilerleyebilirsiniz.
-            </div>
-          </div>
-          <DialogFooter className='m-0 justify-stretch rounded-none px-6 py-4 sm:justify-stretch'>
-            <Button onClick={verifyOtp} className='h-10 w-full'>
-              Kodu doğrula
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <OtpVerificationDialog
+        open={securityOpen}
+        onOpenChange={setSecurityOpen}
+        value={otp}
+        onValueChange={(value) => {
+          setOtp(value);
+          setOtpError('');
+        }}
+        onVerify={verifyOtp}
+        error={otpError}
+      />
     </>
   );
 }
