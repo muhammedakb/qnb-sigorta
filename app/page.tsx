@@ -1,5 +1,5 @@
-import { InsuranceFlow } from "@/components/insurance-flow"
+import { InsuranceFlow } from '@/features/insurance-flow';
 
 export default function Home() {
-  return <InsuranceFlow />
+  return <InsuranceFlow />;
 }

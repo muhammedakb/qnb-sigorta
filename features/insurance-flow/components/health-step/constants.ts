@@ -1,0 +1,16 @@
+export const HEALTH_CONDITIONS = [
+  "Kalp ve dolaşım sistemi hastalıkları",
+  "İnsülin kullanan diyabet",
+  "Her türlü kanser",
+  "Kan hastalıkları",
+  "Organ yetmezlikleri veya organ nakli",
+  "Sinir sistemi hastalıkları",
+  "Doğumsal anomaliler",
+  "Ülseratif kolit veya Crohn hastalığı",
+  "Akciğer hastalıkları",
+  "Bağışıklık sistemi hastalıkları",
+  "Kas, iskelet ve romatizmal hastalıklar",
+  "Beyin ve beyin damar hastalıkları",
+  "Böbrek hastalıkları",
+  "Karaciğer hastalıkları",
+] as const
