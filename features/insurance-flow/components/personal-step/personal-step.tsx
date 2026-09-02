@@ -40,11 +40,17 @@ import { useQuoteStore } from '@/store/quote-store';
 import type { PersonalDetails } from '../../types';
 import { OCCUPATIONS } from './constants';
 import { personalDetailsSchema } from './validations';
+import { useShallow } from 'zustand/shallow';
 
 export function PersonalStep() {
-  const personal = useQuoteStore((state) => state.personal);
-  const updatePersonal = useQuoteStore((state) => state.updatePersonal);
-  const setStep = useQuoteStore((state) => state.setStep);
+  const { personal, updatePersonal, setStep } = useQuoteStore(
+    useShallow((state) => ({
+      personal: state.personal,
+      updatePersonal: state.updatePersonal,
+      setStep: state.setStep,
+    })),
+  );
+
   const [securityOpen, setSecurityOpen] = useState(false);
   const [otp, setOtp] = useState('');
   const [otpError, setOtpError] = useState('');

@@ -21,11 +21,16 @@ import type { HealthAnswer } from '../../types';
 import { HEALTH_CONDITIONS } from './constants';
 import type { HealthForm } from './types';
 import { healthSchema } from './validations';
+import { useShallow } from 'zustand/shallow';
 
 export function HealthStep() {
-  const healthAnswer = useQuoteStore((state) => state.healthAnswer);
-  const setHealthAnswer = useQuoteStore((state) => state.setHealthAnswer);
-  const setStep = useQuoteStore((state) => state.setStep);
+  const { healthAnswer, setHealthAnswer, setStep } = useQuoteStore(
+    useShallow((state) => ({
+      healthAnswer: state.healthAnswer,
+      setHealthAnswer: state.setHealthAnswer,
+      setStep: state.setStep,
+    })),
+  );
 
   const {
     control,

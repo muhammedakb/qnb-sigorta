@@ -22,13 +22,19 @@ import { Separator } from '@muhammedakb/qnb-ui/layout';
 import { useQuoteStore } from '@/store/quote-store';
 
 import { QUOTE_BENEFITS } from './constants';
+import { useShallow } from 'zustand/shallow';
 
 export function QuoteStep() {
-  const personal = useQuoteStore((state) => state.personal);
-  const healthAnswer = useQuoteStore((state) => state.healthAnswer);
-  const quoteSent = useQuoteStore((state) => state.quoteSent);
-  const setQuoteSent = useQuoteStore((state) => state.setQuoteSent);
-  const setStep = useQuoteStore((state) => state.setStep);
+  const { personal, healthAnswer, quoteSent, setQuoteSent, setStep } =
+    useQuoteStore(
+      useShallow((state) => ({
+        personal: state.personal,
+        healthAnswer: state.healthAnswer,
+        quoteSent: state.quoteSent,
+        setQuoteSent: state.setQuoteSent,
+        setStep: state.setStep,
+      })),
+    );
 
   return (
     <div className='mx-auto w-full max-w-4xl'>

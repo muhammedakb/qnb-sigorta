@@ -12,16 +12,22 @@ import { HealthStep } from './components/health-step';
 import { PersonalStep } from './components/personal-step';
 import { QuoteStep } from './components/quote-step';
 import { INSURANCE_FLOW_STEPS } from './constants';
+import { useShallow } from 'zustand/shallow';
 
 export function InsuranceFlow() {
-  const currentStep = useQuoteStore((state) => state.currentStep);
-  const setStep = useQuoteStore((state) => state.setStep);
-  const hasHydrated = useQuoteStore((state) => state.hasHydrated);
-  const reset = useQuoteStore((state) => state.reset);
+  const { currentStep, setStep, hasHydrated, reset } = useQuoteStore(
+    useShallow((state) => ({
+      currentStep: state.currentStep,
+      setStep: state.setStep,
+      hasHydrated: state.hasHydrated,
+      reset: state.reset,
+    })),
+  );
+
   const [flowKey, setFlowKey] = useState(0);
 
   useEffect(() => {
-    void useQuoteStore.persist.rehydrate();
+    useQuoteStore.persist.rehydrate();
   }, []);
 
   if (!hasHydrated) {
